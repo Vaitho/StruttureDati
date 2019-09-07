@@ -1,5 +1,6 @@
 #include <iostream>
 #include "linked_List.h"
+#include "stack.h"
 
 int main(){
 	std::cout << "linked list test" << std::endl;
@@ -12,7 +13,15 @@ int main(){
 	l1.pushfront(1);
 	std::cout << l1 << std::endl;
 	l1.reverse();
-	
 	std::cout << l1 << std::endl;
+	
+	stack<int> l2;
+	l2.push(1);
+	l2.push(2);
+	l2.push(3);
+	l2.push(4);
+	l2.pop();
+	std::cout<<l2;
+	
 	return 0;
 }

@@ -66,18 +66,18 @@ void list<T, P>::reverse(){
 	if(empty())
 		return;
 	T tmp;
-	P p1 = begin();
-	P p2 = begin();
+	P cur1 = begin();
+	P cur2 = begin();
 	
-	while(!end(next(p2)))
-		p2 = next(p2);
+	while(!end(next(cur2)))
+		cur2 = next(cur2);
 
-	while(p1 != p2 && previous(p1) != p2)
+	while(cur1!=cur2 && previous(cur1)!=cur2)
 	{
-		tmp = read(p1);
-		rewrite(p1, read(p2));
-		rewrite(p2, tmp);
-		p1 = next(p1);
-		p2 = previous(p2);
+		tmp = read(cur1);
+		rewrite(cur1, read(cur2));
+		rewrite(cur2, tmp);
+		cur1 = next(cur1);
+		cur2 = previous(cur2);
 	}
 }

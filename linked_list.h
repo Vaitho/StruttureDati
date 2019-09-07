@@ -15,37 +15,36 @@ private:
 
 template<class T>
 class linked_list : public list<T,Node<T> *>{
-public:
-	linked_list();	//COSTRUTTORE
-	linked_list(const linked_list<T>&);	//COSTRUTTORE DI COPIA
-	~linked_list();	//DISTRUTTORE
+	public:
+		linked_list();	//COSTRUTTORE
+		linked_list(const linked_list<T>&);	//COSTRUTTORE DI COPIA
+		~linked_list();	//DISTRUTTORE
+		
+		linked_list<T>& operator=(const linked_list<T> &list);//OVERLOAD1
+		linked_list<T>& operator==(const linked_list<T> &list);//OVERLOAD2
+		
+		
+		void clear();	//CANCELLA LISTA
+		bool empty() const;	//LISTA VUOTA
+		size_t size() const;//GRANDEZZA LISTA
+		void pushback(T v);//INSERISCI NELLA CODA
+		void pushfront(T v);//INSERISCI NELLA TESTA
+		Node<T> *begin() const;//RESTITUISCE TESTA
+		Node<T> *asdbegin() const;//RESTITUISCE CODA
+		bool end(Node<T> *p) const;//Check
+		Node<T> *next(Node<T> *p) const; //POSIZIONE SUCC
+		Node<T> * previous(Node<T> *p) const; //POSIZIONE PREC
+		T read(Node<T> *p) const; //LEGGI LISTA
+		void rewrite(Node<T> *p, T v);//RISCRIVE
+		void insert(Node<T> *p, T v);//INSERISCE
+		void remove(Node<T> *p);//RIMUOVE
+		Node<T> *find(T v) const;//RICERCA
 	
-	linked_list<T>& operator=(const linked_list<T> &list);//OVERLOAD1
-	linked_list<T>& operator==(const linked_list<T> &list);//OVERLOAD2
 	
-	
-	void clear();	//CANCELLA LISTA
-	bool empty() const;	//LISTA VUOTA
-	size_t size() const;//GRANDEZZA LISTA
-	void pushback(T v);//INSERISCI NELLA CODA
-	void pushfront(T v);//INSERISCI NELLA TESTA
-	Node<T> *begin() const;//RESTITUISCE TESTA
-	Node<T> *asdbegin() const;//RESTITUISCE CODA
-	bool end(Node<T> *p) const;//Check
-	Node<T> *next(Node<T> *p) const; //POSIZIONE SUCC
-	Node<T> * previous(Node<T> *p) const; //POSIZIONE PREC
-	T read(Node<T> *p) const; //LEGGI LISTA
-	void rewrite(Node<T> *p, T v);//RISCRIVE
-	void insert(Node<T> *p, T v);//INSERISCE
-	void remove(Node<T> *p);//RIMUOVE
-	Node<T> *find(T v) const;//RICERCA
-
-
-private:
-	Node<T> * head;
-	Node<T> * tail;
-	int length=0;
-	
+	private:
+		Node<T> * head;
+		Node<T> * tail;
+		int length=0;
 };
 
 //COSTRUTTORE
@@ -57,7 +56,7 @@ linked_list<T>::linked_list(){
 //COSTRUTTORE COPIA
 template<typename T>
 linked_list<T>::linked_list(const linked_list<T> &l){
-	linked_list();//DOUBT
+	linked_list();
 	Node<T> *tmp = l.begin();
 
 	while(!l.end(tmp)){
