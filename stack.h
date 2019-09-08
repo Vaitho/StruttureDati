@@ -15,6 +15,7 @@ class sNode{
 		sNode<T> *prev;
 };
 
+
 template<class T>
 class stack{
 	public:
@@ -31,6 +32,10 @@ class stack{
 		
 		template <class K>
  	   friend std :: ostream& operator<<(std::ostream& os, const stack<K>&);
+ 	   
+ 	   stack<T>& operator=(const stack<T> &);//OVERLOAD1
+   		bool operator==(const stack<T> &);//OVERLOAD2
+
 		
 	private:
 		sNode<T> *top;
@@ -47,6 +52,8 @@ stack<T>::stack(){
 //COSTRUTTORE PER COPIA
 template<typename T>
 stack<T>::stack(const stack &s){
+	top=nullptr;
+	length=0;
 	sNode<T> *tmp1 = s.top;
 	top = new sNode<T>;
 	top->value=tmp1->value;
@@ -57,13 +64,12 @@ stack<T>::stack(const stack &s){
 	while(tmp1!=nullptr){
 		sNode<T> *node = new sNode<T>;
 		node->value=tmp1->value;
-		node->prec=nullptr;
-
-		tmp2->prec = node;
-
-		tmp1 = tmp1->prec;
-		tmp2 = tmp2->prec;
+		node->prev=nullptr;
+		tmp2->prev=node;
+		tmp1 = tmp1->prev;
+		tmp2 = tmp2->prev;
 	}
+	length=s.get_size();
 }
 
 //DISTRUTTORE
@@ -140,4 +146,48 @@ std :: ostream& operator<<(std::ostream& os, const stack<K>&p){
   return os;
 }
 
+//OVERLOAD1
+template<class T>
+stack<T>& stack<T>::operator=(const stack<T> &s){
+	if(this==& s){
+		return *this;
+	}
+	else if(s.empty()){
+		clear();
+	}
+	else{
+		sNode<T> *tmp1 = s.top;
+		top = new sNode<T>;
+		top->value=tmp1->value;
+		top->prev=nullptr;
+		tmp1=tmp1->prev;
+		sNode<T> *tmp2=top;
+	
+		while(tmp1!=nullptr){
+			this->value=tmp1->value;
+			this->prev=nullptr;
+			this->prev=this;
+			tmp1=tmp1->prev;
+			tmp2=tmp2->prev;
+		}
+	}
+}
 
+//OVERLOAD2
+template<class T>
+bool stack<T>::operator==(const stack<T> &s){
+
+	if(get_size()!=s.get_size()){
+		return false;
+	}
+	sNode<T> *temp1=s.top;
+	sNode<T> *temp2=top;
+	while(temp1!=nullptr){
+		if(temp1->value!=temp2->value){
+			return false;
+		}
+		temp1=temp1->prev;
+		temp2=temp2->prev;
+	}
+	return true;
+}

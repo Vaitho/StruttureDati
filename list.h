@@ -29,13 +29,12 @@ std::ostream &operator<<(std::ostream &os, const list<T, P> &l){
     P p = l.begin();
     os << "[ ";
     while(!l.end(p)){
-        os << l.read(p) << " ";
+        os << l.read(p)<<"|";
         p = l.next(p);
     }
     os << "]";
     return os;
 }
-
 //ORDINAMENTO CRESCENTE
 template<class T, class P>
 void list<T,P>::sort(){

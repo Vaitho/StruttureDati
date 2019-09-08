@@ -40,7 +40,6 @@ class linked_list : public list<T,Node<T> *>{
 		void remove(Node<T> *p);//RIMUOVE
 		Node<T> *find(T v) const;//RICERCA
 	
-	
 	private:
 		Node<T> * head;
 		Node<T> * tail;
@@ -56,14 +55,15 @@ linked_list<T>::linked_list(){
 //COSTRUTTORE COPIA
 template<typename T>
 linked_list<T>::linked_list(const linked_list<T> &l){
-	linked_list();
+	head=tail=nullptr;
 	Node<T> *tmp = l.begin();
 
 	while(!l.end(tmp)){
 		pushback(tmp->value);
 		tmp=tmp->next;
 	}
-	length=l.size();
+		length=l.size();
+
 }
 
 
@@ -237,6 +237,7 @@ linked_list<T>& linked_list<T>::operator=(const linked_list<T> &list){
 			temp=temp->next;
 		}
 	}
+	length=list.size();
 	return *this;
 }
 

@@ -1,18 +1,13 @@
 #include <iostream>
 #include "linked_List.h"
 #include "stack.h"
+#include "queue.h"
 
 int main(){
-	std::cout << "linked list test" << std::endl;
 	linked_list<int> l1;
+	
 	l1.pushback(12);
-	l1.pushback(69);
-	l1.pushback(32);
-	l1.pushback(45);
 	l1.pushfront(23);
-	l1.pushfront(1);
-	std::cout << l1 << std::endl;
-	l1.reverse();
 	std::cout << l1 << std::endl;
 	
 	stack<int> l2;
@@ -21,7 +16,18 @@ int main(){
 	l2.push(3);
 	l2.push(4);
 	l2.pop();
-	std::cout<<l2;
+	std::cout << l2 << std::endl;
+
+	stack<int> l3;
+	l3.push(4);
 	
+	//l2=l3;
+	queue<int> q1;
+	q1.push(12345679);
+	q1.push(12);
+	q1.pop();
+	queue<int> q2;
+	q2=q1;
+	std::cout <<q2;
 	return 0;
 }
