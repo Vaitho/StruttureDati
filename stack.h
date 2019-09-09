@@ -92,7 +92,7 @@ void stack<T>::push(T v){
 template<typename T>
 void stack<T>::pop(){
 	if(empty()){
-		std::cout <<"Lo stack è vuoto"<< std::endl;
+		throw"Lo stack è vuoto";
 	}
 	else{
 	sNode<T> *node=top;

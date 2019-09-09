@@ -174,8 +174,7 @@ void linked_list<T>::rewrite(Node<T> *p, T v){
 
 //INSERISCO
 template<typename T>
-void linked_list<T>::insert(Node<T> *p, T v)
-{
+void linked_list<T>::insert(Node<T> *p, T v){
 	Node<T> *node=new Node<T>;
 	node->value=v;
 	node->next=p->next;

@@ -173,4 +173,3 @@ bool queue<T>::operator==(const queue<T> &q){
 	}
 	return true;
 }
-
