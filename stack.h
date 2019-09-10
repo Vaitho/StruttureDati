@@ -23,6 +23,9 @@ class stack{
 		stack(const stack &s);//COSTRUTTORE COPIA
 		~stack();//DISTRUTTORE
 		
+		stack<T>& operator=(const stack<T> &);//OVERLOAD1
+   		bool operator==(const stack<T> &);//OVERLOAD2
+
 		void clear();//RESET STACK
 		bool empty() const;//CHECK
 		size_t get_size() const;//RESTITUISCE LA LUNGHEZZA
@@ -32,11 +35,6 @@ class stack{
 		
 		template <class K>
  	   friend std :: ostream& operator<<(std::ostream& os, const stack<K>&);
- 	   
- 	   stack<T>& operator=(const stack<T> &);//OVERLOAD1
-   		bool operator==(const stack<T> &);//OVERLOAD2
-
-		
 	private:
 		sNode<T> *top;
 		size_t length=0;
@@ -92,7 +90,7 @@ void stack<T>::push(T v){
 template<typename T>
 void stack<T>::pop(){
 	if(empty()){
-		throw"Lo stack è vuoto";
+		throw"Lo stack ï¿½ vuoto";
 	}
 	else{
 	sNode<T> *node=top;
@@ -152,25 +150,31 @@ stack<T>& stack<T>::operator=(const stack<T> &s){
 	if(this==& s){
 		return *this;
 	}
-	else if(s.empty()){
+	if(!empty()){
 		clear();
 	}
-	else{
+		top=nullptr;
+		length=0;
+	if(s.empty()){
+		return *this;
+	}
 		sNode<T> *tmp1 = s.top;
 		top = new sNode<T>;
 		top->value=tmp1->value;
 		top->prev=nullptr;
+		
 		tmp1=tmp1->prev;
 		sNode<T> *tmp2=top;
 	
 		while(tmp1!=nullptr){
-			this->value=tmp1->value;
-			this->prev=nullptr;
-			this->prev=this;
+			sNode<T> *node=new sNode<T>;
+			node->value=tmp1->value;
+			node->prev=nullptr;
+			
+			tmp2->prev=node;
 			tmp1=tmp1->prev;
 			tmp2=tmp2->prev;
 		}
-	}
 }
 
 //OVERLOAD2

@@ -19,13 +19,13 @@ int main(){
 	l3.push(2);
 	l3.push(1);
 	std::cout << l3 << std::endl;
-	//l2=l3;//CORREGGI DEMENTE
+	l2=l3;//CORREGGI DEMENTE
 	
-	dictionary<std::string, int> ht(5);
+//	dictionary<std::string, int> ht(5);
 
-	ht.insert("a", 1);
+//	ht.insert("a", 1);
 
-	std::cout << ht << std::endl;
+//	std::cout << ht << std::endl;
 	
 	return 0;
 }
