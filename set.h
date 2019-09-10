@@ -221,6 +221,14 @@ void set<T>::difference(set<T> &v){
 //OPERATORE=
 template<class T>
 set<T>& set<T>::operator=(const set<T> &s){
+	clear();
+	setNode<T> *node= new setNode<T>;
+	node=s.head;
+	while(node!=nullptr){
+		T value=node->value;
+		insert(value);
+		node=node->next;
+	}
 }
 //OPERATORE==
 template<class T>

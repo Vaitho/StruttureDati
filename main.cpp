@@ -43,6 +43,7 @@ int main(){
 	std::cout << s2 << std::endl;
 	s1.difference(s2);
 //	set<int> s2(s1);
+	s1=s2;
 	if(s1==s2){
 		std::cout<<"NO";
 	}
