@@ -18,11 +18,12 @@ public:
 template<class K>
 class hash{
 	public:
-		size_t operator()(K k) const{
+		size_t operator()(std::string k) const{
 			size_t t=0;
-			for(int i=0;i<t;i++){
+			for(int i=0;i<k.size();i++){
 				t+=k[i];
 			}
+			return t;
 		}
 };
 
@@ -39,7 +40,9 @@ class dictionary{
 		void insert(K k, T v);
 		void remove(K k);
 	 	K getValue(K k)const;
+		void clear();
 
+		dictionary &operator=(const dictionary &ht);
 	private:
 		dNode<K, T> **table;
 		hash<K> hash;
@@ -69,6 +72,27 @@ dictionary<K,T>::dictionary(size_t d){
 }
 
 template<typename K, typename T>
+dictionary<K,T>::~dictionary(){
+	clear();
+}
+
+template<typename K, typename T>
+dictionary<K,T>::dictionary(const dictionary<K,T>&ht){
+	divisor=ht.divisor;
+	size = 0;
+	table=new dNode<K, T>*[divisor];
+
+	for(size_t i = 0; i < ht.divisor; i++){
+		dNode<K, T> *tmp = ht.table[i];
+		while(tmp!=nullptr){
+			insert(tmp->key, tmp->value);
+			tmp = tmp->next;
+		}
+	}
+}
+
+
+template<typename K, typename T>
 bool dictionary<K, T>::isempty() const{
 	return size==0;
 }
@@ -82,12 +106,13 @@ void dictionary<K,T>::insert(K k,T v){
 		temp->key=k;
 		temp->value=v;
 		temp->prev=nullptr;
-		temp->next=hash[pos];
+		temp->next=table[pos];
 		
 		if(table[pos]!=nullptr){
-			hash[pos]->prev=temp;
+			table[pos]->prev=temp;
 		}
-		hash[pos]=temp;	
+		table[pos]=temp;	
+		size++;
 	}else{
 		node->value=v;
 	}
@@ -103,7 +128,7 @@ void dictionary<K,T>::remove(K k){
 	}
 	else{
 		if(node->prev==nullptr){
-			hash[pos]=node->next;
+			table[pos]=node->next;
 		}else{
 			node->prev->next=node->next;
 		}
@@ -114,6 +139,7 @@ void dictionary<K,T>::remove(K k){
 	delete node;
 	size --;
 }
+
 template<typename K,typename T>
 bool dictionary<K,T>::isKey(K k)const{
 	size_t pos=hash(k)%divisor;
@@ -130,7 +156,7 @@ K dictionary<K,T>::getValue(K k)const{
 	size_t pos=hash(k)%divisor;
 	dNode<K,T> *node=search(k,pos);
 	if(node==nullptr){
-		throw"Chiave non trovata";
+		throw"Chiave non valida";
 	}
 	else{
 		return node->value;
@@ -151,7 +177,7 @@ dNode<K, T> *dictionary<K,T>::search(K k, size_t h) const{
 
 template<class K, class T>
 std::ostream &operator<<(std::ostream &os, const dictionary<K, T> &d){
-	for(size_t i = 0; i <d.divisor(); i++){
+	for(size_t i = 0; i <d.divisor; i++){
 		os << i << ") [ ";
 		dNode<K, T> *tmp = d.table[i];
 		while(tmp != nullptr){
@@ -161,4 +187,32 @@ std::ostream &operator<<(std::ostream &os, const dictionary<K, T> &d){
 		os << "]" << std::endl;
 	}
 	return os;
+}
+
+template<typename K, typename T>
+void dictionary<K,T>::clear(){
+	if(table!=nullptr){
+		dNode<K,T> *node;
+		for(int i=0;i<divisor;i++){
+			node=table[i];
+			while(node!=nullptr){
+				remove(node->key);
+				node=node->next;
+			}
+		}
+	}
+}
+
+template<typename K, typename T>
+dictionary<K, T> &dictionary<K, T>::operator=(const dictionary<K, T> &ht){
+	clear();
+	divisor=ht.divisor;
+	dNode<K,T> *node;
+	for(int i=0;i<divisor;i++){
+		node=ht.table[i];
+		while(node!=nullptr){
+			insert(node->key,node->value);
+			node=node->next;
+		}
+	}
 }

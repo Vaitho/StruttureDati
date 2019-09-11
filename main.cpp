@@ -21,11 +21,18 @@ int main(){
 	std::cout << l3 << std::endl;
 	l2=l3;//CORREGGI DEMENTE
 	
-//	dictionary<std::string, int> ht(5);
+	dictionary<std::string, int> ht(5);
 
-//	ht.insert("a", 1);
-
-//	std::cout << ht << std::endl;
-	
+	ht.insert("a", 1);
+	ht.insert("b", 1);
+	ht.insert("c", 1);
+	ht.insert("d", 32);
+	ht.insert("e", 12);
+	ht.insert("ciao",12);
+	ht.remove("ciao");
+	dictionary<std::string,int> hp(5);
+	hp=ht;
+	std::cout << ht << std::endl;
+	std::cout << hp << std::endl;
 	return 0;
 }
