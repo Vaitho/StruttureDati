@@ -6,13 +6,15 @@
 #include "dictionary.h"
 #include "binarytree.h"
 int main(){
-	binarytree<int> tree;
-	btNode<int> *n=new btNode<int>;
-	tree.insertRoot(12);
-	tree.insertRight(tree.getRoot(),32);
-	tree.insertLeft(tree.getRight(tree.getRoot()),153);
-	tree.insertRight(tree.getRight(tree.getRoot()),43);
-	tree.remove(tree.getRight(tree.getRoot()));
-	std::cout<<tree<<std::endl;
+binarytree<int>bt;
+bt.insertRoot(1);
+  bt.insertRight(bt.getRoot(),2);
+  bt.insertRight(bt.getRight(bt.getRoot()), 3);
+  bt.insertLeft(bt.getRight(bt.getRoot()), 4);
+  bt.insertRight(bt.getRight(bt.getRight(bt.getRoot())),5);
+  bt.remove(bt.getRight(bt.getRoot()));
+  bt.write(bt.getRoot(),10000);
+  bt.clear();
+  std::cout<<bt<<std::endl;	
 	return 0;
 }

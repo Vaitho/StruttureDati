@@ -34,7 +34,9 @@ class binarytree{
         void insertLeft(btNode<T> *n,T v);//
         
         void remove(btNode<T> *n);
-
+        
+        void write(btNode<T> *n,T v);
+		void clear();
         static void print(std::ostream &os, btNode<T> *n);
 
         template<class U>
@@ -132,7 +134,6 @@ void binarytree<T>::remove(btNode<T> *n){
         n->right=nullptr;
     }
     if(n->left==nullptr and n->right==nullptr){
-		std::cout<<n->value<<std::endl;
 		if(n == root){
 			root = nullptr;
 		}
@@ -175,4 +176,16 @@ void binarytree<T>::print(std::ostream &os, btNode<T> *n)
 		os << "NULL ";
 
 	std::cout << "] ";
+}
+
+template<class T>
+void binarytree<T>::write(btNode<T> *n,T v){
+	btNode<T> *node=new btNode<T>;
+	node=n;
+	node->value=v;
+}
+
+template<class T>
+void binarytree<T>::clear(){
+	remove(getRoot());
 }
